@@ -12,25 +12,15 @@ import urllib.request
 
 from datetime import datetime, timezone
 
-# Elvis hail monitor
-
-# Houston, Texas
-
-# 200-mile radius
-
-# Hail threshold: 1 inch
-
-# Check every 35 minutes
-
 CLIENT_ID = os.environ.get("XWEATHER_CLIENT_ID")
 
 CLIENT_SECRET = os.environ.get("XWEATHER_CLIENT_SECRET")
 
-CHECK_INTERVAL = 35 * 60
+CHECK_INTERVAL = 2100
 
 MIN_HAIL_INCHES = 1.0
 
-MAX_DISTANCE_MILES = 200
+MAX_DISTANCE_MILES = 200.0
 
 HOUSTON_LAT = 29.7604
 
@@ -42,29 +32,19 @@ def distance_miles(lat1, lon1, lat2, lon2):
 
     radius = 3958.8
 
-    lat1, lon1, lat2, lon2 = map(
+    lat1 = math.radians(lat1)
 
-        math.radians,
+    lon1 = math.radians(lon1)
 
-        [lat1, lon1, lat2, lon2]
+    lat2 = math.radians(lat2)
 
-    )
+    lon2 = math.radians(lon2)
 
     dlat = lat2 - lat1
 
     dlon = lon2 - lon1
 
-    a = (
-
-        math.sin(dlat / 2) ** 2
-
-        + math.cos(lat1)
-
-        * math.cos(lat2)
-
-        * math.sin(dlon / 2) ** 2
-
-    )
+    a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
 
     return radius * 2 * math.asin(min(1, math.sqrt(a)))
 
@@ -82,7 +62,7 @@ def check_hail():
 
         "client_secret": CLIENT_SECRET,
 
-        "p": f"{HOUSTON_LAT},{HOUSTON_LON}",
+        "p": str(HOUSTON_LAT) + "," + str(HOUSTON_LON),
 
         "radius": "200miles",
 
@@ -90,13 +70,7 @@ def check_hail():
 
     })
 
-    url = (
-
-        "https://data.api.xweather.com/"
-
-        "stormcells/closest?" + params
-
-    )
+    url = "https://data.api.xweather.com/stormcells/closest?" + params
 
     try:
 
@@ -112,13 +86,7 @@ def check_hail():
 
         cells = data.get("response") or []
 
-        print(
-
-            f"Checked {len(cells)} storm cells",
-
-            flush=True
-
-        )
+        print("Checked " + str(len(cells)) + " storm cells", flush=True)
 
         for cell in cells:
 
@@ -136,17 +104,7 @@ def check_hail():
 
                 continue
 
-            distance = distance_miles(
-
-                HOUSTON_LAT,
-
-                HOUSTON_LON,
-
-                lat,
-
-                lon
-
-            )
+            distance = distance_miles(HOUSTON_LAT, HOUSTON_LON, lat, lon)
 
             if distance > MAX_DISTANCE_MILES:
 
@@ -158,11 +116,11 @@ def check_hail():
 
                 continue
 
-            cell_id = cell.get("id", "unknown")
+            cell_id = str(cell.get("id", "unknown"))
 
-            timestamp = ob.get("timestamp", "unknown")
+            timestamp = str(ob.get("timestamp", "unknown"))
 
-            event_id = f"{cell_id}:{timestamp}"
+            event_id = cell_id + ":" + timestamp
 
             if event_id in seen:
 
@@ -172,11 +130,21 @@ def check_hail():
 
             print(
 
-                f"HAIL ALERT: {size} inches | "
+                "HAIL ALERT: "
 
-                f"{distance:.1f} miles from Houston | "
+                + str(size)
 
-                f"Latitude {lat}, Longitude {lon}",
+                + " inches | "
+
+                + str(round(distance, 1))
+
+                + " miles from Houston | Latitude "
+
+                + str(lat)
+
+                + ", Longitude "
+
+                + str(lon),
 
                 flush=True
 
@@ -184,13 +152,7 @@ def check_hail():
 
     except Exception as error:
 
-        print(
-
-            f"Weather check failed: {type(error).__name__}",
-
-            flush=True
-
-        )
+        print("Weather check failed: " + type(error).__name__, flush=True)
 
 print("ELVIS HAIL MONITOR STARTING", flush=True)
 
