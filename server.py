@@ -1,3 +1,3 @@
 import time
 while true:
-  time.sleep (60close)
+  time.sleep (60)
