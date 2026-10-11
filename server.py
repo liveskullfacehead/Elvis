@@ -3,5 +3,5 @@ import time
 import json
 import urllib.request
 import urllib.parse
-while true:
+while True:
   time.sleep (60)
