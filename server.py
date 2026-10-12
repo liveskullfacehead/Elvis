@@ -14,7 +14,7 @@ try:
   data = json.load(response)
   threats = data.get("response") or []
   for threat in threats:
-    details = threat.get("details") or threat.get("properties", {}.get("details") or {}
+    details = threat.get("details") or threat.get("properties", {}.get("details") or {})
     hail = details.get("hail") or {}
     size = float(hail.get("maxSizeIN") or 0)
     if size >=1.0:
