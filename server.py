@@ -9,7 +9,7 @@ url = "https://data.api.xweather.com/hail/threats/closest"
 request_url = f"{url}?p=houston,tx&radius=200miles&limit=100&client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}"
 def check_hail():
   print("Checking Xweather")
-  try:
+try:
   response = urllib.request.urlopen(request_url, timeout=30)
   data = json.load(response)
 except Exception as error:
