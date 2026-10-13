@@ -58,7 +58,7 @@ def distance_miles(lat1, lon1, lat2, lon2):
 
     radius = 3958.8
 
-    p1 = math.radians(lat1)
+    p1 = math.radians(lat1)
 
     p2 = math.radians(lat2)
 
