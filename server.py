@@ -78,7 +78,7 @@ def distance_miles(lat1, lon1, lat2, lon2):
 
     )
 
-    return 2 * radius * math.asin(math.sqrt(a))
+    return 2 * radius * math.asin(math.sqrt(a))
 
 # ============================================================
 
