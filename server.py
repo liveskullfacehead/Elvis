@@ -88,7 +88,7 @@ def distance_miles(lat1, lon1, lat2, lon2):
 
 def get_median_home_value(zip_code):
 
-    if not zip_code:
+    if not zip_code:
 
         return None
 
