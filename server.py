@@ -56,29 +56,29 @@ alerted_events = set()
 
 def distance_miles(lat1, lon1, lat2, lon2):
 
-    radius = 3958.8
+    radius = 3958.8
 
-    p1 = math.radians(lat1)
+    p1 = math.radians(lat1)
 
-    p2 = math.radians(lat2)
+    p2 = math.radians(lat2)
 
-    delta_lat = math.radians(parenlat2 - lat1)
+    delta_lat = math.radians(lat2 - lat1)
 
-    delta_lon = math.radians(lon2 - lon1)
+    delta_lon = math.radians(lon2 - lon1)
 
-    a = (
+    a = (
 
-    math.sin(delta_lat / 2) ** 2
+        math.sin(delta_lat / 2) ** 2
 
-    + math.cos(p1)
+        + math.cos(p1)
 
-    * math.cos(p2)
+        * math.cos(p2)
 
-    * math.sin(delta_lon / 2) ** 2
+        * math.sin(delta_lon / 2) ** 2
 
-    )
+    )
 
-    return 2 * radius * math.asin(math.sqrt(a))
+    return 2 * radius * math.asin(math.sqrt(a))
 
 # ============================================================
 
@@ -88,29 +88,29 @@ def distance_miles(lat1, lon1, lat2, lon2):
 
 def get_median_home_value(zip_code):
 
-    if not zip_code:
+    if not zip_code:
 
-    return None
+        return None
 
-    zip_code = str(zip_code).strip()[:5]
+    zip_code = str(zip_code).strip()[:5]
 
-    if zip_code in home_value_cache:
+    if zip_code in home_value_cache:
 
-        return home_value_cache[zip_code]
+        return home_value_cache[zip_code]
 
-    params = {
+    params = {
 
-        "get": f"NAME,{CENSUS_VARIABLE}",
+        "get": f"NAME,{CENSUS_VARIABLE}",
 
-        "for": f"zip code tabulation area:{zip_code}",
+        "for": f"zip code tabulation area:{zip_code}",
 
-    }
+    }
 
-    if CENSUS_API_KEY:
+    if CENSUS_API_KEY:
 
         params["key"] = CENSUS_API_KEY
 
-    try:
+    try:
 
         response = requests.get(
 
