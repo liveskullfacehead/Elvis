@@ -68,15 +68,15 @@ def distance_miles(lat1, lon1, lat2, lon2):
 
     a = (
 
-        math.sin(delta_lat / 2) ** 2
+    math.sin(delta_lat / 2) ** 2
 
-        + math.cos(p1)
+    + math.cos(p1)
 
-        * math.cos(p2)
+    * math.cos(p2)
 
-        * math.sin(delta_lon / 2) ** 2
+    * math.sin(delta_lon / 2) ** 2
 
-    )
+    )
 
     return 2 * radius * math.asin(math.sqrt(a))
 
