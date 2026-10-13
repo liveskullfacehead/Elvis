@@ -96,7 +96,7 @@ def get_median_home_value(zip_code):
 
     if zip_code in home_value_cache:
 
-        return home_value_cache[zip_code]
+    return home_value_cache[zip_code]
 
     params = {
 
