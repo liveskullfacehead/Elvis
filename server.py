@@ -62,7 +62,7 @@ def distance_miles(lat1, lon1, lat2, lon2):
 
     p2 = math.radians(lat2)
 
-    delta_lat = math.radians(lat2 - lat1)
+    delta_lat = math.radians(parenlat2 - lat1)
 
     delta_lon = math.radians(lon2 - lon1)
 
