@@ -90,7 +90,7 @@ def get_median_home_value(zip_code):
 
     if not zip_code:
 
-        return None
+    return None
 
     zip_code = str(zip_code).strip()[:5]
 
