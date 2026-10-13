@@ -98,19 +98,19 @@ def get_median_home_value(zip_code):
 
         return home_value_cache[zip_code]
 
-    params = {
+    params = {
 
         "get": f"NAME,{CENSUS_VARIABLE}",
 
         "for": f"zip code tabulation area:{zip_code}",
 
-    }
+    }
 
-    if CENSUS_API_KEY:
+    if CENSUS_API_KEY:
 
         params["key"] = CENSUS_API_KEY
 
-    try:
+    try:
 
         response = requests.get(
 
