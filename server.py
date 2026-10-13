@@ -90,19 +90,19 @@ def get_median_home_value(zip_code):
 
     if not zip_code:
 
-        return None
+        return None
 
     zip_code = str(zip_code).strip()[:5]
 
     if zip_code in home_value_cache:
 
-        return home_value_cache[zip_code]
+        return home_value_cache[zip_code]
 
     params = {
 
-        "get": f"NAME,{CENSUS_VARIABLE}",
+        "get": f"NAME,{CENSUS_VARIABLE}",
 
-        "for": f"zip code tabulation area:{zip_code}",
+        "for": f"zip code tabulation area:{zip_code}",
 
     }
 
