@@ -92,7 +92,7 @@ def get_median_home_value(zip_code):
 
     return None
 
-    zip_code = str(zip_code).strip()[:5]
+    zip_code = str(zip_code).strip()[:5]
 
     if zip_code in home_value_cache:
 
