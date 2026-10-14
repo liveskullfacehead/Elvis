@@ -28,7 +28,33 @@ CENSUS_URL = f"https://api.census.gov/data/{CENSUS_YEAR}/acs/acs5"
 home_value_cache = {}
 alerted_events = set()
 
+def send_sms(message):
+    api_key = os.getenv("TEXTBELT_PHONE")
+    phone = os.getenv("SMS_PHONE")
 
+    if not api_key or not phone:
+        print("SMS not configured.")
+        return
+
+    try:
+        response = requests.post(
+            "https://textbelt.com/text",
+            {
+                "phone": phone,
+                "message": message,
+                "key": api_key,
+            },
+            timeout=15,
+        )
+        result = response.json()
+
+        if result.get("success"):
+            print("SMS sent successfully.")
+        else:
+            print("SMS failed:", result)
+
+    except Exception as e:
+        print("SMS error:", e)
 def distance_miles(lat1, lon1, lat2, lon2):
     radius = 3958.8
     p1 = math.radians(lat1)
@@ -243,6 +269,7 @@ def process_report(report):
     print(f'Hail: {hail_inches:.2f}"')
     print(f"Location: {city}, {state}")
     print(f"ZIP: {zip_code}")
+    send_sms(f"ELVIS HAIL ALERT: {hail_inches:.2f} inch hail - {city}, {state} ZIP {zip_code}")
 
     if distance is not None:
         print(f"Distance from Houston center: {distance:.1f} miles")
