@@ -57,8 +57,7 @@ def send_sms(message):
     try:
         respose = requests.post(
             "https://textbelt.com",
-            data = {}
-            {
+            data = {
                 "phone": phone,
                 "message": message,
                 "key": api_key,
