@@ -336,5 +336,5 @@ def run_elvis():
 
 
 if __name__ == "__main__":
-    send_SMS("elvis test - sms is working")
+    send_sms("elvis test - sms is working")
     run_elvis()
