@@ -29,8 +29,9 @@ home_value_cache = {}
 alerted_events = set()
 
 def send_sms(message):
-    api_key = os.getenv("TEXTBELT_PHONE")
+    api_key = os.getenv("TEXTBELT_API_KEY")
     phone = os.getenv("SMS_PHONE")
+    
     if not api_key or not phone:
         print("SMS not configured.")
         return
