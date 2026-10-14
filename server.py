@@ -29,32 +29,52 @@ home_value_cache = {}
 alerted_events = set()
 
 def send_sms(message):
-    api_key = os.getenv("TEXTBELT_PHONE")
+    api_key = os.getenv(TEXTBELT_PHONE)
     phone = os.getenv("SMS_PHONE")
+    if not api_key or not phone:
+        print("SMS not configured.")
+        return
+    try:
+        resonse = requests.post(
+            "https://textbelt.com/text",
+            {
+                "phone": phone,
+                "message": message,
+                "key": api_key,
+            },
+            timeout=15
+        )
+        result = response.json()
 
-    if not api_key or not phone:
-        print("SMS not configured.")
-        return
+        if result.get("success"):
+            print("SMS sent successfully.")
+        else:
+            print("SMS failed:", result)
 
-    try:
-        response = requests.post(
-            "https://textbelt.com/text",
-            {
-                "phone": phone,
-                "message": message,
-                "key": api_key,
-            },
-            timeout=15,
-        )
-        result = response.json()
+    except Exception as e:
+        print("SMS error:", e)
 
-        if result.get("success"):
-            print("SMS sent successfully.")
-        else:
-            print("SMS failed:", result)
+    try:
+        respose = requests.post(
+            "https://textbelt.com",
+            data = {}
+            {
+                "phone": phone,
+                "message": message,
+                "key": api_key,
+            },
+            timeout=15,
+        )
+        result = response.jsopn()
 
-    except Exception as e:
-        print("SMS error:", e)
+        if result.get("success"):
+            print("SMS sent successfully.")
+        else:
+            print("SMS failed:",result)
+
+    except Exception as e:
+        print("SMS error:", e)
+
 def distance_miles(lat1, lon1, lat2, lon2):
     radius = 3958.8
     p1 = math.radians(lat1)
