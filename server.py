@@ -56,26 +56,6 @@ def send_sms(message):
     except Exception as e:
         print("SMS error:", e)
 
-    try:
-        respose = requests.post(
-            "https://textbelt.com",
-            data = {
-                "phone": phone,
-                "message": message,
-                "key": api_key,
-            },
-            timeout=15,
-        )
-        result = response.jsopn()
-
-        if result.get("success"):
-            print("SMS sent successfully.")
-        else:
-            print("SMS failed:",result)
-
-    except Exception as e:
-        print("SMS error:", e)
-
 def distance_miles(lat1, lon1, lat2, lon2):
     radius = 3958.8
     p1 = math.radians(lat1)
