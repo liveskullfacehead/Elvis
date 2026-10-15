@@ -37,7 +37,7 @@ def send_sms(message):
         print("SMS not configured.")
         return
     try:
-        resonse = requests.post(
+        response = requests.post(
             "https://textbelt.com/text",
             {
                 "phone": phone,
